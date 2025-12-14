@@ -4,181 +4,435 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Fajrx</title>
-
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
   <style>
     :root{
-      --bg:#0a0209;
-      --card:#18201b;
-      --muted:#bfbfbf;
-      --accent:#ffcc00;
-      --glass: rgba(255,255,255,0.04);
+      --bg:#0a0a0a; --card:#0f0f0f; --muted:#bfbfbf; --accent:#ffcc00; --glass: rgba(255,255,255,0.04);
     }
-    [data-theme='light']{
-      --bg:#f6f6f7;
-      --card:#ffffff;
-      --muted:#444;
-      --accent:#b8860b;
-      --glass: rgba(0,0,0,0.04);
-    }
+    [data-theme='light']{ --bg:#f6f6f7; --card:#ffffff; --muted:#444; --accent:#b8860b; --glass: rgba(0,0,0,0.04); }
 
     *{box-sizing:border-box}
-    body{
-      font-family:Inter,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--muted);
-      margin:0;
-      line-height:1.5
-    }
+    body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--muted);margin:0;line-height:1.5}
+    a{color:inherit}
 
-    header{
-      background:var(--card);
-      padding:18px 20px;
-      position:sticky;
-      top:0;
-      z-index:40;
-      border-bottom:3px solid var(--accent);
-    }
-
+    /* Header */
+    header{background:linear-gradient(180deg, rgba(0,0,0,0.6), transparent), var(--card);padding:18px 20px;position:sticky;top:0;z-index:40;border-bottom:3px solid var(--accent);backdrop-filter: blur(6px)}
     .container{max-width:1100px;margin:0 auto}
-    .topbar{display:flex;justify-content:space-between;align-items:center}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:56px;height:56px;border-radius:10px;object-fit:cover;border:2px solid var(--accent)}
+    .brand h1{font-size:1.1rem;margin:0;color:var(--accent);letter-spacing:0.6px}
+    nav{display:flex;gap:12px;align-items:center}
+    .nav-links{display:flex;gap:12px}
+    .nav-links a{padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:600}
+    .nav-links a:hover{background:var(--glass);color:var(--accent);transform:translateY(-2px)}
 
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand img{
-      width:56px;height:56px;
-      border-radius:10px;
-      border:2px solid var(--accent)
-    }
-    .brand h1{margin:0;color:var(--accent)}
+    /* Mobile */
+    .hamburger{display:none;background:none;border:0;color:var(--muted);font-size:1.3rem}
+    .controls{display:flex;align-items:center;gap:8px}
+    .lang-select, .theme-toggle{background:transparent;border:1px solid var(--glass);padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer}
 
-    nav{display:flex;gap:10px;align-items:center}
-    .nav-links a{
-      padding:8px 12px;
-      text-decoration:none;
-      border-radius:8px;
-      font-weight:600
-    }
-    .nav-links a:hover{background:var(--glass);color:var(--accent)}
-
+    /* Hero */
     .hero{padding:60px 20px;text-align:center}
-    .hero img{
-      width:280px;height:160px;
-      border-radius:12px;
-      border:2px solid var(--accent)
-    }
+    .hero .title{font-size:2.2rem;color:var(--accent);margin:6px 0}
+    .hero p{max-width:780px;margin:10px auto;color:var(--muted)}
+    .hero .cta{margin-top:18px;display:flex;justify-content:center;gap:12px}
+    .btn{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none}
+    .btn:hover{background:var(--accent);color:#000}
 
+    /* Sections */
     section{padding:40px 20px}
-    h2{color:var(--accent)}
+    h2{color:var(--accent);margin-top:0}
+    .grid{display:grid;gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px;border:1px solid var(--glass)}
 
-    .card{
-      background:var(--card);
-      padding:20px;
-      border-radius:12px;
-      border:1px solid var(--glass)
+    /* Products */
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .product{display:flex;flex-direction:column;gap:10px}
+    .product img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .price{font-weight:800;color:var(--accent)}
+
+    /* Contact */
+    .contact-form{max-width:720px;margin:auto}
+    label{display:block;font-size:0.9rem;margin-bottom:6px;color:var(--muted)}
+    input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--glass);background:transparent;color:var(--muted)}
+    textarea{min-height:120px}
+    .row{display:flex;gap:12px}
+    .row .col{flex:1}
+
+    /* Footer */
+    footer{padding:20px;text-align:center;border-top:3px solid var(--accent);margin-top:20px}
+    .socials a{display:inline-block;margin:6px;padding:8px;border-radius:8px;border:1px solid var(--glass)}
+
+    /* Floating WhatsApp */
+    .whatsapp{position:fixed;right:18px;bottom:18px;background:linear-gradient(45deg,var(--accent),#f4d35e);padding:12px;border-radius:50px;box-shadow:0 6px 20px rgba(0,0,0,0.4);z-index:60}
+    .whatsapp a{color:#000;font-weight:800;text-decoration:none}
+
+    /* Reviews carousel */
+    .reviews{display:flex;gap:12px;align-items:center;justify-content:center}
+    .review{min-width:280px;max-width:520px}
+
+    /* Responsive */
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hamburger{display:block}
+      .topbar{gap:8px}
+      .brand h1{font-size:1rem}
     }
 
-    footer{
-      padding:20px;
-      border-top:3px solid var(--accent);
-      text-align:center
+    /* small devices */
+    @media(max-width:520px){
+      .hero .title{font-size:1.6rem}
+      .brand img{width:46px;height:46px}
     }
 
-    /* Floating Email Button */
-    .email-float{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      background:linear-gradient(45deg,var(--accent),#f4d35e);
-      padding:12px 18px;
-      border-radius:50px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.4);
-      z-index:60
-    }
-    .email-float a{
-      color:#000;
-      font-weight:800;
-      text-decoration:none
-    }
+    /* subtle animations */
+    .fade-in{opacity:0;transform:translateY(10px);transition:all 700ms ease}
+    .fade-in.visible{opacity:1;transform:none}
+
   </style>
 </head>
-
 <body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <img id="logo" src="logo1.jpeg" alt="Fajrx">
+        <div>
+          <h1 id="site-title">Fajrx </h1>
+          <div style="font-size:0.85rem;color:var(--muted)" id="site-sub">Fajrx'den dünya'ya</div>
+        </div>
+      </div>
 
-<header>
-  <div class="container topbar">
-    <div class="brand">
-      <img src="logo1.jpeg" alt="Fajrx logo ">
-      <h1>Fajrx</h1>
+      <nav>
+        <button class="hamburger" id="open-menu"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="nav-links">
+          <a href="#home" data-i18n="home">Anasayfa</a>
+          <a href="#about" data-i18n="about">Hakkımızda</a>
+          <a href="#services" data-i18n="services">Hizmetler</a>
+          <a href="#contact" data-i18n="contact">İletişim</a>
+        </div>
+
+        <div class="controls">
+          <select id="lang" class="lang-select" title="Dil seç">
+            <option value="tr">Türkçe</option>
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+          <button id="theme-toggle" class="theme-toggle" title="Tema değiştir">🌙</button>
+        </div>
+      </nav>
     </div>
 
-    <nav class="nav-links">
-      <a href="#home">Anasayfa</a>
-      <a href="#about">Hakkımızda</a>
-      <a href="#services">Hizmetler</a>
-      <a href="#contact">İletişim</a>
-    </nav>
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu" style="display:none;position:fixed;inset:68px 14px auto 14px;background:var(--card);border-radius:12px;padding:14px;z-index:80;border:1px solid var(--glass)">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong style="color:var(--accent)">Menü</strong>
+        <button id="close-menu" style="background:none;border:0;color:var(--muted);font-size:18px"><i class="fas fa-times"></i></button>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+        <a href="#home" class="mobile-link">Anasayfa</a>
+        <a href="#about" class="mobile-link">Hakkımızda</a>
+        <a href="#services" class="mobile-link">Hizmetler</a>
+        <a href="#contact" class="mobile-link">İletişim</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero container">
+      <div class="fade-in" style="transition-delay:100ms">
+        <div style="display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap">
+          <img id="hero-img" src="logo2.jpeg" alt="Fajrx" style="width:280px;height:160px;object-fit:cover;border-radius:12px;border:2px solid var(--accent)">
+          <div style="max-width:520px;text-align:left">
+            <div style="font-size:0.95rem;color:var(--muted)" id="founder">24H</div>
+            <h2 class="title" id="hero-title">Türkiye ve Çin - Afrika arası güvenilir ticaret</h2>
+            <p id="hero-desc">Yüksek kalite ürünler, hızlı lojistik çözümleri ve müşteri odaklı hizmet anlayışıyla işinizi büyütün.</p>
+            <div class="cta">
+              <a class="btn" href="#contact" data-i18n="contactBtn">Bize Ulaş</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container">
+      <h2 data-i18n="aboutTitle">Hakkımızda</h2>
+      <div class="grid">
+        <div class="card fade-in" style="padding:20px">
+          <p data-i18n="aboutText">Fajrx, kadın ve erkek giyim sektöründe faaliyet gösteren, geniş ürün yelpazesiyle hizmet sunan Türkiye merkezli bir ticaret firmasıdır.Kadın ve erkeklere yönelik her türlü giyim ürünleri, ayakkabı, çanta ve ilgili aksesuarların temini ve tedariki konusunda kapsamlı çözümler sağlamaktayız.Ayrıca, modern ve özgün tasarımlara sahip ev dekorasyonu ürünleri, özellikle yatak odası takımları, nevresim setleri, yatak örtüleri ve çeşitli ev tekstili ürünleri firmamızın ana faaliyet alanları arasında yer almaktadır. Sunulan tüm ürünler kalite standartlarına uygun, güncel ve güvenilir tedarikçilerden temin edilmektedir.Fajrx, müşterilerinin ihtiyaçları doğrultusunda deniz yolu ve hava yolu taşımacılığı seçenekleri sunmakta olup, alanında deneyimli ve güvenilir lojistik ve nakliye firmaları ile iş birliği içerisinde çalışmaktadır. Bu sayede ürünlerin güvenli, düzenli ve zamanında teslim edilmesi sağlanmaktadır.Firmamız, kalite, güvenilirlik ve sürdürülebilir ticaret ilkeleri doğrultusunda, müşterilerine uzun vadeli iş ortaklığı ve profesyonel hizmet anlayışı sunmayı amaçlamaktadır..</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="container">
+      <h2 data-i18n="servicesTitle">Hizmetlerimiz</h2>
+      <div class="grid cols-3">
+        <div class="card fade-in">
+          <h3>Lojistik & Nakliye</h3>
+          <p>gümrükleme ve gidiş-dönüş lojistik koordinasyonu.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Tedarik Zinciri</h3>
+          <p>Güvenilir tedarikçiler, kalite kontrol ve stok yönetimi desteği.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Müşteri Destek</h3>
+          <p>Satış sonrası destek, iade ve garanti süreçlerinde yardımcı oluyoruz.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="container">
+      <h2 data-i18n="reviewsTitle">Müşteri Yorumları</h2>
+      <div class="reviews" id="reviews-wrap">
+        <div class="card review fade-in" id="review-1">
+          <strong>Ahmet ali.</strong>
+          <p>Hızlı teslimat, ürünler beklediğimden çok daha iyi çıktı. Teşekkürler Fajrx!</p>
+        </div>
+        <div class="card review fade-in" id="review-2" style="display:none">
+          <strong>Fatoumata </strong>
+          <p>Müşteri hizmetleri çok ilgiliydi, gümrük işlemlerinde yardımcı oldular.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2 data-i18n="contactTitle">İletişim</h2>
+      <div class="card contact-form fade-in">
+        <form id="contactForm" onsubmit="handleContact(event)">
+          <div class="row">
+            <div class="col">
+              <label for="name" data-i18n="name">İsim</label>
+              <input id="name" name="name" required>
+            </div>
+            <div class="col">
+              <label for="email" data-i18n="email">E-posta</label>
+              <input id="email" name="email" type="email" required>
+            </div>
+          </div>
+          <label for="message" data-i18n="message">Mesaj</label>
+          <textarea id="message" name="message" required></textarea>
+          <div style="display:flex;gap:10px;margin-top:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+            <button class="btn" type="submit" data-i18n="send">Gönder</button>
+            <div style="font-size:0.85rem;color:var(--muted)">Veya doğrudan: <a id="mail-link" href="mailto:fajrx0101@gmail.com">fajrx0101@gmail.com</a></div>
+          </div>
+        </form>
+      </div>
+
+      <div style="margin-top:18px" class="card">
+        <h3>Konumumuz</h3>
+        <p id="address">Adres: J2V2+5MF, Bamako, Mali</p>
+        <iframe id="map" src="https://www.google.com/maps?q=J2V2+5MF,+Bamako,+Mali&output=embed" style="width:100%;height:320px;border:0;border-radius:8px;margin-top:10px"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <strong>Fajrx </strong>
+          <div style="font-size:0.9rem;color:var(--muted)">© <span id="year"></span> Tüm hakları saklıdır.</div>
+        </div>
+        <div class="socials">
+          <a href="https://tiktok.com/@fajrx4" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a href="https://wa.me/905375425281" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" title="E-posta"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp floating -->
+  <div class="whatsapp" role="button">
+    <a id="whats-btn" href="https://wa.me/905375425281?text=Merhaba%20Fajrx%20-%20Benim%20iletişim%20istiyorum" target="_blank"><i class="fab fa-whatsapp"></i> Mesaj</a>
   </div>
-</header>
 
-<main>
+  <script>
+    // ======= CONFIG - kişiselleştirebilirsin =======
+    const CONFIG = {
+      email: 'fajrx0101@gmail.com',
+      whatsappPhone: '905375425281',
+      logo: 'logo1.jpeg',
+      heroImage: 'logo2.jpeg',
+      initialLang: 'tr'
+    }
 
-<section id="home" class="hero container">
-  <img src="logo1.jpeg" alt="Fajrx logo">
-  <h2>Türkiye – Çin – Afrika Arası Güvenilir Ticaret</h2>
-  <p>Yüksek kalite ürünler ve güvenilir lojistik çözümleri.</p>
-</section>
+    // Uygula config
+    document.getElementById('logo').src = CONFIG.logo
+    document.getElementById('hero-img').src = CONFIG.heroImage
+    document.getElementById('mail-link').href = 'mailto:' + CONFIG.email
+    document.getElementById('year').textContent = new Date().getFullYear()
+    document.getElementById('whats-btn').href = `https://wa.me/${CONFIG.whatsappPhone}?text=Merhaba%20Fajrx`;
 
-<section id="about" class="container">
-  <h2>Hakkımızda</h2>
-  <div class="card">
-    <p>
-      Fajrx, Türkiye merkezli bir ithalatçı firmadır.
-      Ev dekorasyonu, erkek ve kadın ürünleri dahil olmak üzere
-      geniş bir ürün yelpazesi sunar.
-      Bizimle doğrudan e-posta yoluyla iletişime geçebilirsiniz:
-      <strong>fajrx0101@gmail.com</strong>
-    </p>
-  </div>
-</section>
+    // Dil metinleri
+    const TEXTS = {
+      tr: {
+        home: 'Anasayfa', about: 'Hakkımızda', services: 'Hizmetler', products: 'Ürünler', contact: 'İletişim',
+        contactBtn: 'Bize Ulaş', browse: 'Ürünlere Gözat', aboutTitle: 'Hakkımızda', aboutText: 'Fajrx, Türkiye merkezli ithalatçı firma olarak 2023 yılında kurulmuştur. Amacımız kaliteli malları hızlı ve güvenilir şekilde Afrika pazarına sunmaktır.',
+        servicesTitle: 'Hizmetlerimiz', productsTitle: 'Ürünlerimiz', reviewsTitle: 'Müşteri Yorumları', contactTitle: 'İletişim', name: 'İsim', email: 'E-posta', message: 'Mesaj', send: 'Gönder'
+      },
+      en: {
+        home: 'Home', about: 'About', services: 'Services', products: 'Products', contact: 'Contact',
+        contactBtn: 'Contact Us', browse: 'Browse Products', aboutTitle: 'About Us', aboutText: 'Fajrx is an importer based in Turkey, established in 2023. We provide reliable access to African markets with high-quality goods and logistics support.',
+        servicesTitle: 'Our Services', productsTitle: 'Our Products', reviewsTitle: 'Customer Reviews', contactTitle: 'Contact', name: 'Name', email: 'Email', message: 'Message', send: 'Send'
+      },
+      fr: {
+        home: 'Accueil', about: 'À propos', services: 'Services', products: 'Produits', contact: 'Contact',
+        contactBtn: 'Nous contacter', browse: 'Voir les produits', aboutTitle: 'À propos', aboutText: "Fajrx est un importateur basé en Turquie, fondé en 2023. Nous fournissons des produits de qualité et des solutions logistiques pour les marchés africains.",
+        servicesTitle: 'Nos Services', productsTitle: 'Nos Produits', reviewsTitle: 'Avis Clients', contactTitle: 'Contact', name: 'Nom', email: 'E-mail', message: 'Message', send: 'Envoyer'
+      },
+      ar: {
+        home: 'الرئيسية', about: 'معلومات عنا', services: 'خدمات', products: 'المنتجات', contact: 'اتصل',
+        contactBtn: 'تواصل معنا', browse: 'تصفح المنتجات', aboutTitle: 'معلومات عنا', aboutText: 'Fajrx شركة استيراد مقرها تركيا تأسست في 2023. نقدم منتجات عالية الجودة وحلول لوجستية إلى الأسواق الإفريقية.',
+        servicesTitle: 'خدماتنا', productsTitle: 'منتجاتنا', reviewsTitle: 'آراء العملاء', contactTitle: 'اتصل', name: 'الاسم', email: 'البريد الإلكتروني', message: 'الرسالة', send: 'إرسال'
+      }
+    }
 
-<section id="services" class="container">
-  <h2>Hizmetlerimiz</h2>
-  <div class="card">
-    <p>Lojistik, tedarik zinciri ve satış sonrası destek.</p>
-  </div>
-</section>
+    // Dil değiştirme
+    // 
+const langSelect = document.getElementById('lang')
+    langSelect.value = localStorage.getItem('site-lang') || CONFIG.initialLang
+    function applyLang(lang){
+      const texts = TEXTS[lang] || TEXTS.tr
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n')
+        if(texts[key]) el.textContent = texts[key]
+      })
+      // map Arabic RTL
+      document.documentElement.lang = lang
+      document.documentElement.dir = (lang==='ar') ? 'rtl' : 'ltr'
+      localStorage.setItem('site-lang', lang)
+    }
+    applyLang(langSelect.value)
+    langSelect.addEventListener('change', e=>applyLang(e.target.value))
 
-<section id="contact" class="container">
-  <h2>İletişim</h2>
-  <div class="card">
-    <p>
-      İletişim için e-posta adresimiz:<br>
-      <strong>fajrx0101@gmail.com</strong>
-    </p>
-  </div>
-</section>
+    // Tema (dark/light)
+    const themeToggle = document.getElementById('theme-toggle')
+    const currentTheme = localStorage.getItem('site-theme') || 'dark'
+    document.documentElement.setAttribute('data-theme', currentTheme === 'light' ? 'light' : '')
+    themeToggle.textContent = currentTheme === 'light' ? '☀️' : '🌙'
+    themeToggle.addEventListener('click', ()=>{
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light'
+      if(isLight){ document.documentElement.removeAttribute('data-theme'); localStorage.setItem('site-theme','dark'); themeToggle.textContent='🌙' }
+      else{ document.documentElement.setAttribute('data-theme','light'); localStorage.setItem('site-theme','light'); themeToggle.textContent='☀️' }
+    })
 
-</main>
+    // Mobile menu
+const openMenu = document.getElementById('open-menu'), closeMenu = document.getElementById('close-menu'), mobileMenu = document.getElementById('mobile-menu')
+    openMenu.addEventListener('click', ()=> mobileMenu.style.display = 'block')
+    closeMenu.addEventListener('click', ()=> mobileMenu.style.display = 'none')
+    document.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click', ()=> mobileMenu.style.display = 'none'))
 
-<footer>
-  <strong>Fajrx</strong><br>
-  © <span id="year"></span> Tüm hakları saklıdır.
-</footer>
+    // Scroll reveal (simple)
+const faders = document.querySelectorAll('.fade-in')
+    const showOnScroll = () =>{
+      const triggerBottom = window.innerHeight - 80
+      faders.forEach(f =>{
+        const boxTop = f.getBoundingClientRect().top
+        if(boxTop < triggerBottom) f.classList.add('visible')
+      })
+    }
+    window.addEventListener('scroll', showOnScroll)
+    window.addEventListener('load', showOnScroll)
 
-<!-- Floating Email Button -->
-<div class="email-float">
-  <a href="mailto:fajrx0101@gmail.com?subject=Fajrx%20İletişim">
-    <i class="fas fa-envelope"></i> E-posta
-  </a>
-</div>
+    // Simple reviews rotator
+let currentReview = 1
+    setInterval(()=>{
+      const r1 = document.getElementById('review-1')
+      const r2 = document.getElementById('review-2')
+      r1.style.display = (currentReview===1) ? 'block' : 'none'
+      r2.style.display = (currentReview===2) ? 'block' : 'none'
+      currentReview = currentReview===1?2:1
+    },5000)
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+    // Contact form handler (mailto fallback)
+function handleContact(e){
+      e.preventDefault()
+      const name = document.getElementById('name').value.trim()
+      const email = document.getElementById('email').value.trim()
+      const msg = document.getElementById('message').value.trim()
+      if(!name||!email||!msg){alert('Lütfen tüm alanları doldurun');return}
+      // Try to open user's email client using mailto
+      const subject = encodeURIComponent('Web sitesi iletişimi - ' + name)
+      const body = encodeURIComponent('İsim: '+name+'\nE-posta: '+email+'\n\n'+msg)
+      const mailto = `mailto:${CONFIG.email}?subject=${subject}&body=${body}`
+      window.location.href = mailto
+    }
 
+    // Smooth scroll for nav
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const href = this.getAttribute('href')
+        if(href.startsWith('#')){
+          e.preventDefault()
+          const el = document.querySelector(href)
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'})
+        }
+      })
+    })
+
+    // Accessibility: close mobile menu with Esc
+ document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') mobileMenu.style.display='none' })
+
+  </script>
+  <script type="module">
+    // Firebase setup
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadProducts() {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const container = document.getElementById("productArea");
+      container.innerHTML = "";
+      querySnapshot.forEach((d) => {
+        const p = d.data();
+        container.innerHTML += `
+          <div class='product-card'>
+            <img src='${p.image}' />
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <strong>${p.price}</strong>
+            <button onclick="deleteProduct('${d.id}')">Sil</button>
+          </div>`;
+      });
+    }
+
+    async function addProduct() {
+      await addDoc(collection(db, "products"), {
+        name: document.getElementById("pname").value,
+        desc: document.getElementById("pdesc").value,
+        price: document.getElementById("pprice").value,
+        image: document.getElementById("pimg").value
+      });
+      loadProducts();
+    }
+
+    async function deleteProduct(id) {
+      await deleteDoc(doc(db, "products", id));
+      loadProducts();
+    }
+
+    window.addProduct = addProduct;
+    window.deleteProduct = deleteProduct;
+    loadProducts();
+  </script>
 </body>
 </html>
 
