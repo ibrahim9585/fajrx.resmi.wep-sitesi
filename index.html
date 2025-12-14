@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Fajrx</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root{
+      --bg:#0a0209;
+      --card:#18201b;
+      --muted:#bfbfbf;
+      --accent:#ffcc00;
+      --glass: rgba(255,255,255,0.04);
+    }
+    [data-theme='light']{
+      --bg:#f6f6f7;
+      --card:#ffffff;
+      --muted:#444;
+      --accent:#b8860b;
+      --glass: rgba(0,0,0,0.04);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      font-family:Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--muted);
+      margin:0;
+      line-height:1.5
+    }
+
+    header{
+      background:var(--card);
+      padding:18px 20px;
+      position:sticky;
+      top:0;
+      z-index:40;
+      border-bottom:3px solid var(--accent);
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+    .topbar{display:flex;justify-content:space-between;align-items:center}
+
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{
+      width:56px;height:56px;
+      border-radius:10px;
+      border:2px solid var(--accent)
+    }
+    .brand h1{margin:0;color:var(--accent)}
+
+    nav{display:flex;gap:10px;align-items:center}
+    .nav-links a{
+      padding:8px 12px;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:600
+    }
+    .nav-links a:hover{background:var(--glass);color:var(--accent)}
+
+    .hero{padding:60px 20px;text-align:center}
+    .hero img{
+      width:280px;height:160px;
+      border-radius:12px;
+      border:2px solid var(--accent)
+    }
+
+    section{padding:40px 20px}
+    h2{color:var(--accent)}
+
+    .card{
+      background:var(--card);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid var(--glass)
+    }
+
+    footer{
+      padding:20px;
+      border-top:3px solid var(--accent);
+      text-align:center
+    }
+
+    /* Floating Email Button */
+    .email-float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:linear-gradient(45deg,var(--accent),#f4d35e);
+      padding:12px 18px;
+      border-radius:50px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.4);
+      z-index:60
+    }
+    .email-float a{
+      color:#000;
+      font-weight:800;
+      text-decoration:none
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container topbar">
+    <div class="brand">
+      <img src="logo1.jpeg" alt="Fajrx">
+      <h1>Fajrx</h1>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#home">Anasayfa</a>
+      <a href="#about">Hakkımızda</a>
+      <a href="#services">Hizmetler</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="home" class="hero container">
+  <img src="logo1.jpeg" alt="Fajrx">
+  <h2>Türkiye – Çin – Afrika Arası Güvenilir Ticaret</h2>
+  <p>Yüksek kalite ürünler ve güvenilir lojistik çözümleri.</p>
+</section>
+
+<section id="about" class="container">
+  <h2>Hakkımızda</h2>
+  <div class="card">
+    <p>
+      Fajrx, Türkiye merkezli bir ithalatçı firmadır.
+      Ev dekorasyonu, erkek ve kadın ürünleri dahil olmak üzere
+      geniş bir ürün yelpazesi sunar.
+      Bizimle doğrudan e-posta yoluyla iletişime geçebilirsiniz:
+      <strong>fajrx0101@gmail.com</strong>
+    </p>
+  </div>
+</section>
+
+<section id="services" class="container">
+  <h2>Hizmetlerimiz</h2>
+  <div class="card">
+    <p>Lojistik, tedarik zinciri ve satış sonrası destek.</p>
+  </div>
+</section>
+
+<section id="contact" class="container">
+  <h2>İletişim</h2>
+  <div class="card">
+    <p>
+      İletişim için e-posta adresimiz:<br>
+      <strong>fajrx0101@gmail.com</strong>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>Fajrx</strong><br>
+  © <span id="year"></span> Tüm hakları saklıdır.
+</footer>
+
+<!-- Floating Email Button -->
+<div class="email-float">
+  <a href="mailto:fajrx0101@gmail.com?subject=Fajrx%20İletişim">
+    <i class="fas fa-envelope"></i> E-posta
+  </a>
+</div>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
